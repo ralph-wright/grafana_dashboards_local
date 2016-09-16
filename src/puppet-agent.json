@@ -1,6 +1,6 @@
 {
-  "id": 4,
-  "title": "Working SSH",
+  "id": 5,
+  "title": "Working Puppet Agent",
   "tags": [
     "security",
     "ssh"
@@ -55,12 +55,11 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
-          "span": 12,
+          "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
-              "alias": "Password Logins",
               "bucketAggs": [
                 {
                   "field": "@timestamp",
@@ -74,7 +73,6 @@
                 }
               ],
               "dsType": "elasticsearch",
-              "hide": false,
               "metrics": [
                 {
                   "field": "select field",
@@ -82,98 +80,14 @@
                   "type": "count"
                 }
               ],
-              "query": "program:sshd AND \"Accepted password\"",
+              "query": "logsource:$host_var program:puppet-agent",
               "refId": "A",
-              "timeField": "@timestamp"
-            },
-            {
-              "alias": "SSH Key Logins",
-              "bucketAggs": [
-                {
-                  "fake": true,
-                  "field": "@timestamp",
-                  "id": "3",
-                  "settings": {
-                    "interval": "auto",
-                    "min_doc_count": 0,
-                    "trimEdges": 0
-                  },
-                  "type": "date_histogram"
-                }
-              ],
-              "dsType": "elasticsearch",
-              "hide": false,
-              "metrics": [
-                {
-                  "field": "select field",
-                  "id": "1",
-                  "type": "count"
-                }
-              ],
-              "query": "program:sshd AND \"Accepted public key\"",
-              "refId": "B",
-              "timeField": "@timestamp"
-            },
-            {
-              "alias": "Failed Logins",
-              "bucketAggs": [
-                {
-                  "fake": true,
-                  "field": "@timestamp",
-                  "id": "3",
-                  "settings": {
-                    "interval": "auto",
-                    "min_doc_count": 0,
-                    "trimEdges": 0
-                  },
-                  "type": "date_histogram"
-                }
-              ],
-              "dsType": "elasticsearch",
-              "hide": false,
-              "metrics": [
-                {
-                  "field": "select field",
-                  "id": "1",
-                  "type": "count"
-                }
-              ],
-              "query": "program:sshd AND Failed",
-              "refId": "C",
-              "timeField": "@timestamp"
-            },
-            {
-              "alias": "Unknown User Login Attempt",
-              "bucketAggs": [
-                {
-                  "fake": true,
-                  "field": "@timestamp",
-                  "id": "3",
-                  "settings": {
-                    "interval": "auto",
-                    "min_doc_count": 0,
-                    "trimEdges": 0
-                  },
-                  "type": "date_histogram"
-                }
-              ],
-              "dsType": "elasticsearch",
-              "hide": false,
-              "metrics": [
-                {
-                  "field": "select field",
-                  "id": "1",
-                  "type": "count"
-                }
-              ],
-              "query": "program:sshd AND \"User unknown\"",
-              "refId": "D",
               "timeField": "@timestamp"
             }
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "SSH Logins By Type",
+          "title": "Puppet Logs By Host",
           "tooltip": {
             "msResolution": true,
             "shared": true,
@@ -202,6 +116,206 @@
               "show": true
             }
           ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "decimals": 0,
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "height": "",
+          "id": 7,
+          "isNew": true,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "hideEmpty": false,
+            "hideZero": false,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": true,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "field": "@timestamp",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "puppet_agent_runtime2",
+                  "id": "1",
+                  "meta": {
+                    "std_deviation_bounds_lower": true,
+                    "std_deviation_bounds_upper": true
+                  },
+                  "settings": {},
+                  "type": "extended_stats"
+                }
+              ],
+              "query": "logsource:$host_var program:puppet-agent AND puppet_agent_runtime2.count",
+              "refId": "A",
+              "timeField": "@timestamp"
+            },
+            {
+              "bucketAggs": [
+                {
+                  "field": "@timestamp",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "select field",
+                  "id": "1",
+                  "type": "count"
+                }
+              ],
+              "query": "{     \"aggs\" : {         \"avg_grade\" : { \"avg\" : { \"field\" : \"puppet_agent_runtime\" } }     } }",
+              "refId": "B",
+              "timeField": "@timestamp"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Agent Runtime",
+          "tooltip": {
+            "msResolution": true,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "columns": [],
+          "editable": true,
+          "error": false,
+          "fontSize": "100%",
+          "id": 9,
+          "isNew": true,
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 0,
+            "desc": true
+          },
+          "span": 4,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "number",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "field": "puppet_agent_runtime.raw",
+                  "id": "2",
+                  "settings": {
+                    "order": "asc",
+                    "orderBy": "_term",
+                    "size": "10"
+                  },
+                  "type": "terms"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "@value",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "avg"
+                }
+              ],
+              "query": "logsource:$host_var program:puppet-agent  @puppet_agent_runtime2=*",
+              "refId": "A",
+              "timeField": "@timestamp"
+            }
+          ],
+          "title": "Panel Title",
+          "transform": "json",
+          "type": "table"
         }
       ],
       "title": "Row"
@@ -214,20 +328,93 @@
         {
           "columns": [
             {
-              "text": "user.raw",
-              "value": "user.raw"
+              "text": "timestamp",
+              "value": "timestamp"
             },
             {
-              "text": "Count",
-              "value": "Count"
+              "text": "logsource",
+              "value": "logsource"
+            },
+            {
+              "text": "program",
+              "value": "program"
+            },
+            {
+              "text": "puppet_agent_runtime2",
+              "value": "puppet_agent_runtime2"
             }
           ],
           "editable": true,
           "error": false,
           "fontSize": "100%",
-          "id": 3,
+          "id": 5,
           "isNew": true,
           "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 2,
+            "desc": false
+          },
+          "span": 12,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "number",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "bucketAggs": [],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "select field",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "raw_document"
+                }
+              ],
+              "query": "program:puppet-agent",
+              "refId": "A",
+              "timeField": "@timestamp"
+            }
+          ],
+          "title": "Raw JSON",
+          "transform": "json",
+          "type": "table"
+        }
+      ],
+      "title": "New row"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "columns": [],
+          "editable": true,
+          "error": false,
+          "fontSize": "100%",
+          "id": 8,
+          "isNew": true,
           "pageSize": null,
           "scroll": true,
           "showHeader": true,
@@ -235,7 +422,7 @@
             "col": 0,
             "desc": true
           },
-          "span": 4,
+          "span": 12,
           "styles": [
             {
               "dateFormat": "YYYY-MM-DD HH:mm:ss",
@@ -258,198 +445,22 @@
           ],
           "targets": [
             {
-              "bucketAggs": [
-                {
-                  "field": "user.raw",
-                  "id": "2",
-                  "settings": {
-                    "order": "asc",
-                    "orderBy": "_term",
-                    "size": "10"
-                  },
-                  "type": "terms"
-                }
-              ],
+              "bucketAggs": [],
               "dsType": "elasticsearch",
               "metrics": [
                 {
                   "field": "select field",
                   "id": "1",
-                  "type": "count"
+                  "meta": {},
+                  "settings": {},
+                  "type": "raw_document"
                 }
               ],
               "refId": "A",
               "timeField": "@timestamp"
             }
           ],
-          "title": "Top SSH Users",
-          "transform": "json",
-          "type": "table"
-        },
-        {
-          "columns": [
-            {
-              "text": "user.raw",
-              "value": "user.raw"
-            },
-            {
-              "text": "Count",
-              "value": "Count"
-            }
-          ],
-          "editable": true,
-          "error": false,
-          "fontSize": "100%",
-          "id": 4,
-          "isNew": true,
-          "links": [],
-          "pageSize": null,
-          "scroll": true,
-          "showHeader": true,
-          "sort": {
-            "col": 0,
-            "desc": true
-          },
-          "span": 4,
-          "styles": [
-            {
-              "dateFormat": "YYYY-MM-DD HH:mm:ss",
-              "pattern": "Time",
-              "type": "date"
-            },
-            {
-              "colorMode": null,
-              "colors": [
-                "rgba(245, 54, 54, 0.9)",
-                "rgba(237, 129, 40, 0.89)",
-                "rgba(50, 172, 45, 0.97)"
-              ],
-              "decimals": 2,
-              "pattern": "/.*/",
-              "thresholds": [],
-              "type": "number",
-              "unit": "short"
-            }
-          ],
-          "targets": [
-            {
-              "bucketAggs": [
-                {
-                  "field": "user.raw",
-                  "id": "2",
-                  "settings": {
-                    "order": "asc",
-                    "orderBy": "_term",
-                    "size": "10"
-                  },
-                  "type": "terms"
-                }
-              ],
-              "dsType": "elasticsearch",
-              "metrics": [
-                {
-                  "field": "select field",
-                  "id": "1",
-                  "type": "count"
-                }
-              ],
-              "query": "failed",
-              "refId": "A",
-              "timeField": "@timestamp"
-            }
-          ],
-          "title": "Failed Attempts By User",
-          "transform": "json",
-          "type": "table"
-        },
-        {
-          "columns": [
-            {
-              "text": "src_ip.raw",
-              "value": "src_ip.raw"
-            },
-            {
-              "text": "Count",
-              "value": "Count"
-            }
-          ],
-          "editable": true,
-          "error": false,
-          "fontSize": "100%",
-          "id": 6,
-          "isNew": true,
-          "links": [],
-          "pageSize": null,
-          "scroll": true,
-          "showHeader": true,
-          "sort": {
-            "col": 1,
-            "desc": true
-          },
-          "span": 4,
-          "styles": [
-            {
-              "dateFormat": "YYYY-MM-DD HH:mm:ss",
-              "pattern": "Time",
-              "type": "date"
-            },
-            {
-              "colorMode": null,
-              "colors": [
-                "rgba(245, 54, 54, 0.9)",
-                "rgba(237, 129, 40, 0.89)",
-                "rgba(50, 172, 45, 0.97)"
-              ],
-              "decimals": 2,
-              "pattern": "/.*/",
-              "thresholds": [],
-              "type": "number",
-              "unit": "short"
-            },
-            {
-              "colorMode": null,
-              "colors": [
-                "rgba(245, 54, 54, 0.9)",
-                "rgba(237, 129, 40, 0.89)",
-                "rgba(50, 172, 45, 0.97)"
-              ],
-              "dateFormat": "YYYY-MM-DD HH:mm:ss",
-              "decimals": 2,
-              "pattern": "/.*/",
-              "thresholds": [],
-              "type": "number",
-              "unit": "short"
-            }
-          ],
-          "targets": [
-            {
-              "bucketAggs": [
-                {
-                  "field": "src_ip.raw",
-                  "id": "2",
-                  "settings": {
-                    "order": "desc",
-                    "orderBy": "_count",
-                    "size": "10"
-                  },
-                  "type": "terms"
-                }
-              ],
-              "dsType": "elasticsearch",
-              "hide": false,
-              "metrics": [
-                {
-                  "field": "select field",
-                  "id": "1",
-                  "type": "count"
-                }
-              ],
-              "query": "",
-              "refId": "A",
-              "timeField": "@timestamp"
-            }
-          ],
-          "title": "Top Source IPs",
+          "title": "Panel Title",
           "transform": "json",
           "type": "table"
         }
@@ -544,70 +555,12 @@
       "collapse": false,
       "editable": true,
       "height": "250px",
-      "panels": [
-        {
-          "columns": [],
-          "editable": true,
-          "error": false,
-          "fontSize": "100%",
-          "id": 5,
-          "isNew": true,
-          "links": [],
-          "pageSize": null,
-          "scroll": true,
-          "showHeader": true,
-          "sort": {
-            "col": 0,
-            "desc": true
-          },
-          "span": 12,
-          "styles": [
-            {
-              "dateFormat": "YYYY-MM-DD HH:mm:ss",
-              "pattern": "Time",
-              "type": "date"
-            },
-            {
-              "colorMode": null,
-              "colors": [
-                "rgba(245, 54, 54, 0.9)",
-                "rgba(237, 129, 40, 0.89)",
-                "rgba(50, 172, 45, 0.97)"
-              ],
-              "decimals": 2,
-              "pattern": "/.*/",
-              "thresholds": [],
-              "type": "number",
-              "unit": "short"
-            }
-          ],
-          "targets": [
-            {
-              "bucketAggs": [],
-              "dsType": "elasticsearch",
-              "metrics": [
-                {
-                  "field": "select field",
-                  "id": "1",
-                  "meta": {},
-                  "settings": {},
-                  "type": "raw_document"
-                }
-              ],
-              "refId": "A",
-              "timeField": "@timestamp"
-            }
-          ],
-          "title": "Raw JSON",
-          "transform": "json",
-          "type": "table"
-        }
-      ],
+      "panels": [],
       "title": "New row"
     }
   ],
   "time": {
-    "from": "now-7d",
+    "from": "now-60d",
     "to": "now"
   },
   "timepicker": {
@@ -636,14 +589,50 @@
     ]
   },
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {
+          "value": [
+            "$__all"
+          ],
+          "text": "All"
+        },
+        "datasource": "Local ES",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Host",
+        "multi": true,
+        "name": "host_var",
+        "options": [
+          {
+            "text": "All",
+            "value": "$__all",
+            "selected": true
+          },
+          {
+            "text": "elk.test.org",
+            "value": "elk.test.org",
+            "selected": false
+          },
+          {
+            "text": "puppeet.test.org",
+            "value": "puppeet.test.org",
+            "selected": false
+          }
+        ],
+        "query": "{\"find\": \"terms\", \"field\": \"logsource.raw\"}",
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      }
+    ]
   },
   "annotations": {
     "list": []
   },
   "refresh": false,
   "schemaVersion": 12,
-  "version": 16,
+  "version": 10,
   "links": [],
   "gnetId": null
 }
