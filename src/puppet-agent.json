@@ -1,4 +1,6 @@
-tle": "Working Puppet Agent",
+{
+  "id": 4,
+  "title": "Saved Puppet Agent",
   "tags": [
     "ssh",
     "simp",

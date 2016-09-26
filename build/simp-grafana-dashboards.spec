@@ -1,7 +1,7 @@
 Summary: Grafana dashboards developed for SIMP
-Name: grafana-dashboards-simp
-Version: 0.0.1
-Release: Alpha
+Name: simp-grafana-dashboards
+Version: 1.0.0
+Release: 0
 License: Apache-2.0
 Group: Applications/System
 Source: %{name}-%{version}-%{release}.tar.gz
@@ -10,8 +10,8 @@ Buildarch: noarch
 
 Prefix: %{_var}/lib/grafana/dashboards
 
-#Requires: grafana >= 3.0.0 
-#Requires: grafana < 4.0.0 
+Requires: grafana >= 3.0.0 
+Requires: grafana < 4.0.0 
 
 %description
 Dashboards developed with SIMP in mind, but may be useful for other grafana
@@ -35,7 +35,7 @@ install -p -m 640 -D src/*.json %{buildroot}%{prefix}
 %config %{prefix}
 
 %post
-# Post installation stuff
+/bin/systemctl restart grafana-server.service
 
 %postun
 # Post uninstall stuff
