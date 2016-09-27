@@ -83,7 +83,7 @@
                   "type": "count"
                 }
               ],
-              "query": "program:sshd AND \"Accepted password\"",
+              "query": "logsource:$host_var AND program:sshd AND \"Accepted password\"",
               "refId": "A",
               "timeField": "@timestamp"
             },
@@ -111,7 +111,7 @@
                   "type": "count"
                 }
               ],
-              "query": "program:sshd AND \"Accepted publickey\"",
+              "query": "logsource:$host_var AND program:sshd AND \"Accepted publickey\"",
               "refId": "B",
               "timeField": "@timestamp"
             },
@@ -139,7 +139,7 @@
                   "type": "count"
                 }
               ],
-              "query": "program:sshd AND Failed",
+              "query": "logsource:$host_var AND  program:sshd AND Failed",
               "refId": "C",
               "timeField": "@timestamp"
             },
@@ -167,7 +167,7 @@
                   "type": "count"
                 }
               ],
-              "query": "program:sshd AND \"User unknown\"",
+              "query": "logsource:$host_var AND program:sshd AND \"User unknown\"",
               "refId": "D",
               "timeField": "@timestamp"
             }
@@ -280,7 +280,8 @@
                 }
               ],
               "refId": "A",
-              "timeField": "@timestamp"
+              "timeField": "@timestamp",
+              "query": "logsource:$host_var AND program:sshd"
             }
           ],
           "title": "Top SSH Users",
@@ -354,7 +355,7 @@
                   "type": "count"
                 }
               ],
-              "query": "program:sshd AND failed",
+              "query": "logsource:$host_var AND program:sshd AND failed",
               "refId": "A",
               "timeField": "@timestamp"
             }
@@ -445,7 +446,7 @@
                   "type": "count"
                 }
               ],
-              "query": "",
+              "query": "logsource:$host_var AND program:sshd",
               "refId": "A",
               "timeField": "@timestamp"
             }
@@ -473,16 +474,8 @@
               "value": "logsource"
             },
             {
-              "text": "user",
-              "value": "user"
-            },
-            {
-              "text": "ssh_status",
-              "value": "ssh_status"
-            },
-            {
-              "text": "ssh_auth_type",
-              "value": "ssh_auth_type"
+              "text": "message",
+              "value": "message"
             }
           ],
           "editable": true,
@@ -533,7 +526,7 @@
                   "type": "raw_document"
                 }
               ],
-              "query": "program:sshd",
+              "query": "logsource:$host_var AND program:sshd",
               "refId": "A",
               "timeField": "@timestamp"
             }
@@ -576,14 +569,50 @@
     ]
   },
   "templating": {
-    "list": []
+    "list": [
+      {
+        "type": "query",
+        "datasource": null,
+        "refresh": 0,
+        "name": "host_var",
+        "hide": 0,
+        "options": [
+          {
+            "text": "All",
+            "value": "$__all",
+            "selected": true
+          },
+          {
+            "text": "elg.test.org",
+            "value": "elg.test.org",
+            "selected": false
+          },
+          {
+            "text": "puppet.test.org",
+            "value": "puppet.test.org",
+            "selected": false
+          }
+        ],
+        "includeAll": true,
+        "multi": true,
+        "label": "Host",
+        "query": "{\"find\": \"terms\", \"field\": \"logsource.raw\"}",
+        "current": {
+          "text": "All",
+          "value": [
+            "$__all"
+          ],
+          "tags": []
+        }
+      }
+    ]
   },
   "annotations": {
     "list": []
   },
   "refresh": false,
   "schemaVersion": 12,
-  "version": 4,
+  "version": 6,
   "links": [],
   "gnetId": null
 }
