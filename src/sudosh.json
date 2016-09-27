@@ -1,10 +1,10 @@
 {
-  "id": 5,
-  "title": "Saved Sudosh",
+  "id": 7,
+  "title": "SIMP - Sudosh",
   "tags": [
     "ssh",
     "simp",
-    "puppet"
+    "security"
   ],
   "style": "dark",
   "timezone": "browser",
@@ -141,58 +141,128 @@
       "height": "250px",
       "panels": [
         {
-          "title": "Sudosh Sessions (24 Hours)",
-          "error": false,
-          "span": 4,
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": null,
           "editable": true,
-          "type": "singlestat",
-          "isNew": true,
+          "error": false,
+          "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": false
+          },
           "id": 15,
+          "interval": null,
+          "isNew": true,
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 4,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.21)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
           "targets": [
             {
-              "metrics": [
-                {
-                  "type": "cardinality",
-                  "id": "1",
-                  "field": "sudosh_session_id.raw",
-                  "settings": {},
-                  "meta": {}
-                }
-              ],
-              "dsType": "elasticsearch",
               "bucketAggs": [
                 {
-                  "type": "date_histogram",
+                  "field": "@timestamp",
                   "id": "2",
                   "settings": {
                     "interval": "1d",
                     "min_doc_count": 0,
                     "trimEdges": 0
                   },
-                  "field": "@timestamp"
+                  "type": "date_histogram"
                 }
               ],
-              "timeField": "@timestamp",
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "sudosh_session_id.raw",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "cardinality"
+                }
+              ],
+              "query": "program:sudosh",
               "refId": "A",
-              "query": "program:sudosh"
+              "timeField": "@timestamp"
             }
           ],
-          "links": [],
-          "datasource": null,
-          "maxDataPoints": 100,
-          "interval": null,
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
+          "thresholds": "",
+          "title": "Sudosh Sessions (24 Hours)",
+          "type": "singlestat",
+          "valueFontSize": "80%",
           "valueMaps": [
             {
-              "value": "null",
               "op": "=",
-              "text": "N/A"
+              "text": "N/A",
+              "value": "null"
             }
           ],
+          "valueName": "avg"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "id": 16,
+          "interval": null,
+          "isNew": true,
+          "links": [],
+          "mappingType": 1,
           "mappingTypes": [
             {
               "name": "value to text",
@@ -203,188 +273,70 @@
               "value": 2
             }
           ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
           "rangeMaps": [
             {
               "from": "null",
-              "to": "null",
-              "text": "N/A"
+              "text": "N/A",
+              "to": "null"
             }
           ],
-          "mappingType": 1,
-          "nullPointMode": "connected",
-          "valueName": "avg",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "",
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
+          "span": 4,
           "sparkline": {
-            "show": true,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.21)"
+            "show": true
           },
-          "gauge": {
-            "show": false,
-            "minValue": 0,
-            "maxValue": 100,
-            "thresholdMarkers": false,
-            "thresholdLabels": false
-          }
-        },
-        {
-          "title": "Sudosh Users (24 Hours)",
-          "error": false,
-          "span": 4,
-          "editable": true,
-          "type": "singlestat",
-          "isNew": true,
-          "id": 16,
           "targets": [
             {
-              "metrics": [
-                {
-                  "type": "cardinality",
-                  "id": "1",
-                  "field": "user.raw",
-                  "settings": {},
-                  "meta": {}
-                }
-              ],
-              "dsType": "elasticsearch",
               "bucketAggs": [
                 {
-                  "type": "date_histogram",
+                  "field": "@timestamp",
                   "id": "2",
                   "settings": {
                     "interval": "1d",
                     "min_doc_count": 1,
                     "trimEdges": 0
                   },
-                  "field": "@timestamp"
-                }
-              ],
-              "timeField": "@timestamp",
-              "refId": "A",
-              "query": "program:sudosh"
-            }
-          ],
-          "links": [],
-          "datasource": null,
-          "maxDataPoints": 100,
-          "interval": null,
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "mappingTypes": [
-            {
-              "name": "value to text",
-              "value": 1
-            },
-            {
-              "name": "range to text",
-              "value": 2
-            }
-          ],
-          "rangeMaps": [
-            {
-              "from": "null",
-              "to": "null",
-              "text": "N/A"
-            }
-          ],
-          "mappingType": 1,
-          "nullPointMode": "connected",
-          "valueName": "avg",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "",
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "sparkline": {
-            "show": true,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          },
-          "gauge": {
-            "show": false,
-            "minValue": 0,
-            "maxValue": 100,
-            "thresholdMarkers": true,
-            "thresholdLabels": false
-          }
-        },
-        {
-          "title": "Sudosh Session IDs",
-          "error": false,
-          "span": 4,
-          "editable": true,
-          "type": "table",
-          "isNew": true,
-          "id": 17,
-          "targets": [
-            {
-              "metrics": [
-                {
-                  "type": "raw_document",
-                  "id": "1",
-                  "field": "select field",
-                  "settings": {},
-                  "meta": {}
+                  "type": "date_histogram"
                 }
               ],
               "dsType": "elasticsearch",
-              "bucketAggs": [],
-              "timeField": "@timestamp",
-              "refId": "A",
-              "query": "program:sudosh AND starting"
-            }
-          ],
-          "styles": [
-            {
-              "type": "date",
-              "pattern": "Time",
-              "dateFormat": "YYYY-MM-DD HH:mm:ss"
-            },
-            {
-              "unit": "short",
-              "type": "number",
-              "decimals": 2,
-              "colors": [
-                "rgba(245, 54, 54, 0.9)",
-                "rgba(237, 129, 40, 0.89)",
-                "rgba(50, 172, 45, 0.97)"
+              "metrics": [
+                {
+                  "field": "user.raw",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "cardinality"
+                }
               ],
-              "colorMode": null,
-              "pattern": "/.*/",
-              "thresholds": []
+              "query": "program:sudosh",
+              "refId": "A",
+              "timeField": "@timestamp"
             }
           ],
-          "transform": "json",
-          "pageSize": null,
-          "showHeader": true,
+          "thresholds": "",
+          "title": "Sudosh Users (24 Hours)",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
           "columns": [
             {
               "text": "user",
@@ -399,13 +351,61 @@
               "value": "sudosh_session_id"
             }
           ],
-          "scroll": true,
+          "editable": true,
+          "error": false,
           "fontSize": "100%",
+          "id": 17,
+          "isNew": true,
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
           "sort": {
             "col": 0,
             "desc": true
           },
-          "links": []
+          "span": 4,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "number",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "bucketAggs": [],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "select field",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "raw_document"
+                }
+              ],
+              "query": "program:sudosh AND starting",
+              "refId": "A",
+              "timeField": "@timestamp"
+            }
+          ],
+          "title": "Sudosh Session IDs",
+          "transform": "json",
+          "type": "table"
         }
       ],
       "title": "New row"
@@ -413,7 +413,7 @@
     {
       "collapse": false,
       "editable": true,
-      "height": "250px",
+      "height": "500px",
       "panels": [
         {
           "columns": [
@@ -476,6 +476,7 @@
             {
               "bucketAggs": [],
               "dsType": "elasticsearch",
+              "hide": false,
               "metrics": [
                 {
                   "field": "select field",
@@ -490,7 +491,7 @@
               "timeField": "@timestamp"
             }
           ],
-          "title": "Raw Puppet Logs",
+          "title": "Raw Sudosh Logs",
           "transform": "json",
           "type": "table"
         }
@@ -549,13 +550,13 @@
             "selected": true
           },
           {
-            "text": "elk.test.org",
-            "value": "elk.test.org",
+            "text": "elg.test.org",
+            "value": "elg.test.org",
             "selected": false
           },
           {
-            "text": "master.test.org",
-            "value": "master.test.org",
+            "text": "puppet.test.org",
+            "value": "puppet.test.org",
             "selected": false
           }
         ],
@@ -569,10 +570,9 @@
           "value": [
             "$__all"
           ],
-          "text": "All",
-          "tags": []
+          "text": "All"
         },
-        "datasource": "ES",
+        "datasource": null,
         "hide": 0,
         "includeAll": true,
         "label": "Sudosh Session ID",
@@ -585,73 +585,38 @@
             "selected": true
           },
           {
-            "text": "1474555905",
-            "value": "1474555905",
+            "text": "1474983517",
+            "value": "1474983517",
             "selected": false
           },
           {
-            "text": "1474555957",
-            "value": "1474555957",
+            "text": "1474983526",
+            "value": "1474983526",
             "selected": false
           },
           {
-            "text": "1474556196",
-            "value": "1474556196",
+            "text": "1474983572",
+            "value": "1474983572",
             "selected": false
           },
           {
-            "text": "1474556321",
-            "value": "1474556321",
+            "text": "1474985009",
+            "value": "1474985009",
             "selected": false
           },
           {
-            "text": "1474557801",
-            "value": "1474557801",
+            "text": "1474985010",
+            "value": "1474985010",
             "selected": false
           },
           {
-            "text": "1474558933",
-            "value": "1474558933",
+            "text": "1474985352",
+            "value": "1474985352",
             "selected": false
           },
           {
-            "text": "1474558936",
-            "value": "1474558936",
-            "selected": false
-          },
-          {
-            "text": "1474559957",
-            "value": "1474559957",
-            "selected": false
-          },
-          {
-            "text": "1474567867",
-            "value": "1474567867",
-            "selected": false
-          },
-          {
-            "text": "1474567872",
-            "value": "1474567872",
-            "selected": false
-          },
-          {
-            "text": "1474570267",
-            "value": "1474570267",
-            "selected": false
-          },
-          {
-            "text": "1474570461",
-            "value": "1474570461",
-            "selected": false
-          },
-          {
-            "text": "1474573614",
-            "value": "1474573614",
-            "selected": false
-          },
-          {
-            "text": "1474573617",
-            "value": "1474573617",
+            "text": "1474985616",
+            "value": "1474985616",
             "selected": false
           }
         ],
@@ -667,7 +632,7 @@
   },
   "refresh": false,
   "schemaVersion": 12,
-  "version": 11,
+  "version": 4,
   "links": [],
   "gnetId": null
 }

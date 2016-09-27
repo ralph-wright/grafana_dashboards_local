@@ -1,8 +1,7 @@
 {
-  "id": 4,
-  "title": "Saved Puppet Agent",
+  "id": 5,
+  "title": "SIMP - Puppet Agent",
   "tags": [
-    "ssh",
     "simp",
     "puppet"
   ],
@@ -33,6 +32,7 @@
           },
           "height": "",
           "id": 2,
+          "interval": "1m",
           "isNew": true,
           "legend": {
             "alignAsTable": false,
@@ -129,8 +129,7 @@
               "min": null,
               "show": true
             }
-          ],
-          "interval": "1m"
+          ]
         },
         {
           "columns": [
@@ -225,6 +224,7 @@
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
           "id": 13,
+          "interval": "30s",
           "isNew": true,
           "legend": {
             "avg": false,
@@ -383,8 +383,7 @@
               "min": null,
               "show": true
             }
-          ],
-          "interval": "30s"
+          ]
         }
       ],
       "title": "New row"
@@ -434,15 +433,15 @@
             {
               "bucketAggs": [
                 {
-                  "type": "terms",
+                  "fake": true,
                   "field": "puppet_resource.raw",
                   "id": "3",
-                  "fake": true,
                   "settings": {
                     "order": "asc",
-                    "size": "10",
-                    "orderBy": "_term"
-                  }
+                    "orderBy": "_term",
+                    "size": "10"
+                  },
+                  "type": "terms"
                 },
                 {
                   "field": "@timestamp",
@@ -617,54 +616,6 @@
       "height": "250px",
       "panels": [
         {
-          "title": "Raw Puppet Logs",
-          "error": false,
-          "span": 12,
-          "editable": true,
-          "type": "table",
-          "isNew": true,
-          "id": 14,
-          "targets": [
-            {
-              "metrics": [
-                {
-                  "type": "raw_document",
-                  "id": "1",
-                  "field": "select field",
-                  "settings": {},
-                  "meta": {}
-                }
-              ],
-              "dsType": "elasticsearch",
-              "bucketAggs": [],
-              "timeField": "@timestamp",
-              "refId": "A",
-              "query": "logsource:$host_var AND program:puppet-agent"
-            }
-          ],
-          "styles": [
-            {
-              "type": "date",
-              "pattern": "Time",
-              "dateFormat": "YYYY-MM-DD HH:mm:ss"
-            },
-            {
-              "unit": "short",
-              "type": "number",
-              "decimals": 2,
-              "colors": [
-                "rgba(245, 54, 54, 0.9)",
-                "rgba(237, 129, 40, 0.89)",
-                "rgba(50, 172, 45, 0.97)"
-              ],
-              "colorMode": null,
-              "pattern": "/.*/",
-              "thresholds": []
-            }
-          ],
-          "transform": "json",
-          "pageSize": null,
-          "showHeader": true,
           "columns": [
             {
               "text": "timestamp",
@@ -679,13 +630,61 @@
               "value": "message"
             }
           ],
-          "scroll": true,
+          "editable": true,
+          "error": false,
           "fontSize": "100%",
+          "id": 14,
+          "isNew": true,
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
           "sort": {
             "col": 0,
             "desc": true
           },
-          "links": []
+          "span": 12,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "number",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "bucketAggs": [],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "select field",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "raw_document"
+                }
+              ],
+              "query": "logsource:$host_var AND program:puppet-agent",
+              "refId": "A",
+              "timeField": "@timestamp"
+            }
+          ],
+          "title": "Raw Puppet Logs",
+          "transform": "json",
+          "type": "table"
         }
       ],
       "title": "New row"
@@ -729,7 +728,7 @@
           ],
           "text": "All"
         },
-        "datasource": "ES",
+        "datasource": null,
         "hide": 0,
         "includeAll": true,
         "label": "Host",
@@ -742,13 +741,13 @@
             "selected": true
           },
           {
-            "text": "elk.test.org",
-            "value": "elk.test.org",
+            "text": "elg.test.org",
+            "value": "elg.test.org",
             "selected": false
           },
           {
-            "text": "master.test.org",
-            "value": "master.test.org",
+            "text": "puppet.test.org",
+            "value": "puppet.test.org",
             "selected": false
           }
         ],
@@ -764,7 +763,7 @@
   },
   "refresh": false,
   "schemaVersion": 12,
-  "version": 31,
+  "version": 3,
   "links": [],
   "gnetId": null
 }

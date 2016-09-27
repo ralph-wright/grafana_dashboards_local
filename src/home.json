@@ -1,6 +1,6 @@
 {
-  "id": 4,
-  "title": "Saved SIMP Home",
+  "id": 8,
+  "title": "SIMP - Home",
   "tags": [
     "puppet",
     "default",
@@ -18,7 +18,7 @@
       "height": "250px",
       "panels": [
         {
-          "content": "The SIMP Default dashboards are installed with an RPM.  They are fixed dashboards and cannot be modified.  They provide some basic stats of your SIMP cluster.  \n\nThe dashboards point to your default data source (no matter what it's called).  All you should have to do is add your data source, which is probably Elasticsearch.\n\nThe Following Dashboards are included:\n* SSH\n* Puppet Agent\n* Puppet Server\n\n",
+          "content": "The SIMP Default dashboards are installed via an RPM on the file system of the grafana server.  They are static dashboards and cannot be modified.  They provide some basic stats of your SIMP cluster.    If you want to modify them, use the Grafana \"Save As\" feature.\n\nThe dashboards point to your default data source (no matter what it's called).  All you should have to do is add your data source (which is probably Elasticsearch) and the dashboards will work.  \n",
           "editable": true,
           "error": false,
           "id": 6,
@@ -426,7 +426,7 @@
   },
   "refresh": false,
   "schemaVersion": 12,
-  "version": 13,
+  "version": 6,
   "links": [],
   "gnetId": null
 }
